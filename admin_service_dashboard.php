@@ -4,26 +4,29 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Admin Dashboard</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-      <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!-- <link rel="stylesheet" href="style.css"> -->
-    </head>
-    <style>
-        .innerright,label {
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin Dashboard</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<style>
+.innerright,
+label {
     color: rgb(16, 170, 16);
-    font-weight:bold;
+    font-weight: bold;
 }
+
 .container,
 .row,
 .imglogo {
-    margin:auto;
+    margin: auto;
 }
 
 .innerdiv {
@@ -31,9 +34,11 @@
     /* width: 500px; */
     margin: 100px;
 }
-input{
-    margin-left:20px;
+
+input {
+    margin-left: 20px;
 }
+
 .leftinnerdiv {
     float: left;
     width: 25%;
@@ -63,19 +68,23 @@ a {
     font-size: large;
 }
 
-th{
+th {
     background-color: orange;
     color: black;
 }
-td{
+
+td {
     background-color: #fed8b1;
     color: black;
 }
-td, a{
-    color:black;
+
+td,
+a {
+    color: black;
 }
-    </style>
-    <body>
+</style>
+
+<body>
 
     <?php
    include("data_class.php");
@@ -97,23 +106,23 @@ elseif($msg=="fail"){
 
 
 
-        <div class="container">
+    <div class="container">
         <div class="innerdiv">
-            <div class="row"><img class="imglogo" src="images/logo.jpeg"/></div>
+            <div class="row"><img class="imglogo" src="images/logo.jpeg" /></div>
             <div class="leftinnerdiv"></Button>
-            
-            
-                <Button class="greenbtn"> ADMIN</Button>
-                <Button class="greenbtn" onclick="openpart('addbook')" >ADD MEMBERS</Button>
-                <Button class="greenbtn" onclick="openpart('viewmaintenance')" > VIEW MAINTENANCE</Button>
-                <Button class="greenbtn"  onclick="openpart('viewcomplaints')"> VIEW COMPLAINTS</Button>
-                <a href="index.php"><Button class="greenbtn" > LOGOUT</Button></a>
-             </div>
-            <div class="rightinnerdiv">   
-            <div id="bookrequestapprove" class="innerright portion" style="display:none">
-            <Button class="greenbtn" >BOOK REQUEST APPROVE</Button>
 
-            <?php
+
+                <Button class="greenbtn"> ADMIN</Button>
+                <Button class="greenbtn" onclick="openpart('addbook')">ADD MEMBERS</Button>
+                <Button class="greenbtn" onclick="openpart('viewmaintenance')"> VIEW MAINTENANCE</Button>
+                <Button class="greenbtn" onclick="openpart('viewcomplaints')"> VIEW COMPLAINTS</Button>
+                <a href="index.php"><Button class="greenbtn"> LOGOUT</Button></a>
+            </div>
+            <div class="rightinnerdiv">
+                <div id="bookrequestapprove" class="innerright portion" style="display:none">
+                    <Button class="greenbtn">BOOK REQUEST APPROVE</Button>
+
+                    <?php
             $u=new data;
             $u->setconnection();
             $u->requestbookdata();
@@ -142,55 +151,57 @@ elseif($msg=="fail"){
             echo $table;
             ?>
 
-            </div>
-            </div>
-
-            <div class="rightinnerdiv">   
-            <div id="addbook" class="innerright portion" style="<?php  if(!empty($_REQUEST['viewid'])){ echo "display:none";} else {echo ""; }?>">
-            <Button class="greenbtn" >ADD MEMBERS</Button>
-            <form action="add_members.php" method="post" enctype="form-data">
-            <label>NAME:</label><input type="text" name="name"/>
-            </br>
-            <label>FLAT NO:</label><input  type="text" name="flat_number"/></br>
-            <label>FAMILY MEMBERS:</label><input type="text" name="family_members"/></br>
-            <div>FLAT TYPE:<input type="radio" name="flat_type" value="RK"/>RK
-                <input type="radio" name="flat_type" value="1BHK"/>1BHK<div style="margin-left:80px">
-                <input type="radio" name="flat_type" value="2BHK"/>2BHK
-                <input type="radio" name="flat_type" value="3BHK"/>3BHK</div>
-            <label>VEHICLE:</label><input type="text" name="vehicle"/></br>
-            </div>   
-            <label>NO OF VEHICLE:</label><input  type="number" name="no_of_vehicle"/></br>
-            <label>CONTACT NUMBER:</label><input type="number" name="contact_number"/></br>
-            
-            </br>
-   
-            <input type="submit" value="SUBMIT"/>
-            </br>
-            </br>
-
-            </form>
-            </div>
-            </div>
-        
-
-        <div class="rightinnerdiv">   
-           <div id="addperson" class="innerright portion" style="display:none">
-        <Button class="greenbtn" >ADD Person</Button>
-            <form action="addpersonserver_page.php" method="post" enctype="multipart/form-data">
-            <label>Name:</label><input type="text" name="addname"/>
-            </br>
-            <label>complaint:</label><input type="pasword" name="addpass"/>
-            </br>
-            <input type="submit" value="SUBMIT"/>
-            </form>
-            </div>
+                </div>
             </div>
 
-            <div class="rightinnerdiv">   
-            <div id="studentrecord" class="innerright portion" style="display:none">
-            <Button class="greenbtn" >Student RECORD</Button>
+            <div class="rightinnerdiv">
+                <div id="addbook" class="innerright portion"
+                    style="<?php  if(!empty($_REQUEST['viewid'])){ echo "display:none";} else {echo ""; }?>">
+                    <Button class="greenbtn">ADD MEMBERS</Button>
+                    <form action="add_members.php" method="post" enctype="form-data">
+                        <label>NAME:</label><input type="text" name="name" />
+                        </br>
+                        <label>FLAT NO:</label><input type="text" name="flat_number" /></br>
+                        <label>FAMILY MEMBERS:</label><input type="text" name="family_members" /></br>
+                        <div>FLAT TYPE:<input type="radio" name="flat_type" value="RK" />RK
+                            <input type="radio" name="flat_type" value="1BHK" />1BHK<div style="margin-left:80px">
+                                <input type="radio" name="flat_type" value="2BHK" />2BHK
+                                <input type="radio" name="flat_type" value="3BHK" />3BHK
+                            </div>
+                            <label>VEHICLE:</label><input type="text" name="vehicle" /></br>
+                        </div>
+                        <label>NO OF VEHICLE:</label><input type="number" name="no_of_vehicle" /></br>
+                        <label>CONTACT NUMBER:</label><input type="number" name="contact_number" /></br>
 
-            <?php
+                        </br>
+
+                        <input type="submit" value="SUBMIT" />
+                        </br>
+                        </br>
+
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="rightinnerdiv">
+                <div id="addperson" class="innerright portion" style="display:none">
+                    <Button class="greenbtn">ADD Person</Button>
+                    <form action="addpersonserver_page.php" method="post" enctype="multipart/form-data">
+                        <label>Name:</label><input type="text" name="addname" />
+                        </br>
+                        <label>complaint:</label><input type="pasword" name="addpass" />
+                        </br>
+                        <input type="submit" value="SUBMIT" />
+                    </form>
+                </div>
+            </div>
+
+            <div class="rightinnerdiv">
+                <div id="studentrecord" class="innerright portion" style="display:none">
+                    <Button class="greenbtn">Student RECORD</Button>
+
+                    <?php
             $u=new data;
             $u->setconnection();
             $u->userdata();
@@ -213,14 +224,14 @@ elseif($msg=="fail"){
             echo $table;
             ?>
 
-            </div>
+                </div>
             </div>
 
-            <div class="rightinnerdiv">   
-            <div id="issuebookreport" class="innerright portion" style="display:none">
-            <Button class="greenbtn" >Issue Book Record </Button>
+            <div class="rightinnerdiv">
+                <div id="issuebookreport" class="innerright portion" style="display:none">
+                    <Button class="greenbtn">Issue Book Record </Button>
 
-            <?php
+                    <?php
             $u=new data;
             $u->setconnection();
             $u->issuereport();
@@ -247,33 +258,34 @@ elseif($msg=="fail"){
             echo $table;
             ?>
 
-            </div>
+                </div>
             </div>
 
-<!--             
+            <!--             
 
 issue book -->
-            <div class="rightinnerdiv">   
-            <div id="issuebook" class="innerright portion" style="display:none">
-            <Button class="greenbtn" >VIEW COMPLAIN</Button>
-            <form action="add_complain.php" method="post" enctype="form-data">
-            <label>Name:</label><input type="text" name="name"/>
-            </br>
-            <label>Complaint:</label><input type="text" name="complain"/>
-            </br>
-            <input type="submit" value="SUBMIT"/>
-            
-            </form>
-            </div>
+            <div class="rightinnerdiv">
+                <div id="issuebook" class="innerright portion" style="display:none">
+                    <Button class="greenbtn">VIEW COMPLAIN</Button>
+                    <form action="add_complain.php" method="post" enctype="form-data">
+                        <label>Name:</label><input type="text" name="name" />
+                        </br>
+                        <label>Complaint:</label><input type="text" name="complain" />
+                        </br>
+                        <input type="submit" value="SUBMIT" />
+
+                    </form>
+                </div>
             </div>
 
 
-            <div class="rightinnerdiv">   
-            <div id="bookdetail" class="innerright portion" style="<?php  if(!empty($_REQUEST['viewid'])){ $viewid=$_REQUEST['viewid'];} else {echo "display:none"; }?>">
-            
-            <Button class="greenbtn" >BOOK DETAIL</Button>
-</br>
-<?php
+            <div class="rightinnerdiv">
+                <div id="bookdetail" class="innerright portion"
+                    style="<?php  if(!empty($_REQUEST['viewid'])){ $viewid=$_REQUEST['viewid'];} else {echo "display:none"; }?>">
+
+                    <Button class="greenbtn">BOOK DETAIL</Button>
+                    </br>
+                    <?php
             $u=new data;
             $u->setconnection();
             $u->getbookdetail($viewid);
@@ -295,25 +307,26 @@ issue book -->
             }            
 ?>
 
-            <img width='150px' height='150px' style='border:1px solid #333333; float:left;margin-left:20px' src="uploads/<?php echo $bookimg?> "/>
-            </br>
-            <p style="color:black"><u>NAME:</u> &nbsp&nbsp<?php echo $bookname ?></p>
-            <p style="color:black"><u>FLAT NO:</u> &nbsp&nbsp<?php echo $bookdetail ?></p>
-            <p style="color:black"><u>FAMILY MEMBER:</u> &nbsp&nbsp<?php echo $bookauthour ?></p>
-            <p style="color:black"><u>FLAT TYPE:</u> &nbsp&nbsp<?php echo $bookpub ?></p>
-            <p style="color:black"><u>VEHICLE:</u> &nbsp&nbsp<?php echo $branch ?></p>
-            <p style="color:black"><u>NO OF VEHICLE:</u> &nbsp&nbsp<?php echo $bookprice ?></p>
-            <p style="color:black"><u>CONTACT NUMBER:</u> &nbsp&nbsp<?php echo $bookava ?></p>
+                    <img width='150px' height='150px' style='border:1px solid #333333; float:left;margin-left:20px'
+                        src="uploads/<?php echo $bookimg?> " />
+                    </br>
+                    <p style="color:black"><u>NAME:</u> &nbsp&nbsp<?php echo $bookname ?></p>
+                    <p style="color:black"><u>FLAT NO:</u> &nbsp&nbsp<?php echo $bookdetail ?></p>
+                    <p style="color:black"><u>FAMILY MEMBER:</u> &nbsp&nbsp<?php echo $bookauthour ?></p>
+                    <p style="color:black"><u>FLAT TYPE:</u> &nbsp&nbsp<?php echo $bookpub ?></p>
+                    <p style="color:black"><u>VEHICLE:</u> &nbsp&nbsp<?php echo $branch ?></p>
+                    <p style="color:black"><u>NO OF VEHICLE:</u> &nbsp&nbsp<?php echo $bookprice ?></p>
+                    <p style="color:black"><u>CONTACT NUMBER:</u> &nbsp&nbsp<?php echo $bookava ?></p>
 
-            </div>  
+                </div>
             </div>
 
 
 
-            <div class="rightinnerdiv">   
-            <div id="viewmaintenance" class="innerright portion" style="display:none">
-            <Button class="greenbtn" >VIEW MAINTENANCE</Button>
-            <?php
+            <div class="rightinnerdiv">
+                <div id="viewmaintenance" class="innerright portion" style="display:none">
+                    <Button class="greenbtn">VIEW MAINTENANCE</Button>
+                    <?php
             $u=new data;
             $u->setconnection();
             $u->getMaintenance();
@@ -338,14 +351,14 @@ issue book -->
             echo $table;
             ?>
 
-            </div>
+                </div>
             </div>
 
 
-            <div class="rightinnerdiv">   
-            <div id="viewcomplaints" class="innerright portion" style="display:none">
-            <Button class="greenbtn" >VIEW MAINTENANCE</Button>
-            <?php
+            <div class="rightinnerdiv">
+                <div id="viewcomplaints" class="innerright portion" style="display:none">
+                    <Button class="greenbtn">VIEW MAINTENANCE</Button>
+                    <?php
             $u=new data;
             $u->setconnection();
             $u->getComplainList();
@@ -370,26 +383,27 @@ issue book -->
             echo $table;
             ?>
 
-            </div>
+                </div>
             </div>
 
 
 
 
         </div>
-        </div>
-        
+    </div>
 
-     
-        <script>
-        function openpart(portion) {
+
+
+    <script>
+    function openpart(portion) {
         var i;
         var x = document.getElementsByClassName("portion");
         for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";  
+            x[i].style.display = "none";
         }
-        document.getElementById(portion).style.display = "block";  
-        }
-        </script>
-    </body>
+        document.getElementById(portion).style.display = "block";
+    }
+    </script>
+</body>
+
 </html>
