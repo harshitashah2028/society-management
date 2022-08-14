@@ -106,6 +106,7 @@ a {
                 <Button class="greenbtn">Welcome</Button>
                 <Button class="greenbtn" onclick="openpart('myaccount')"> My Account</Button>
                 <Button class="greenbtn" onclick="openpart('addComlain')"> Add Complain</Button>
+                <Button class="greenbtn" onclick="openpart('payMen')"> Pay </Button>
                 <a href="index.php"><Button class="greenbtn"> LOGOUT</Button></a>
             </div>
 
@@ -151,7 +152,33 @@ a {
                     </form>
                 </div>
             </div>
+            
 
+            <div class="rightinnerdiv">
+                <div id="payMen" class="innerright portion" style="display:none">
+                    <?php
+                        $u=new data;
+                        $u->setconnection();
+                        $u->getAmount(1);
+                        $recordset=$u->getAmount(1);
+                        foreach($recordset as $row){
+                            $amount= $row[2] - $row[3];
+                            $flat_no = $row[0];
+                        }               
+                    ?>
+                    <p style="color:black"><u>Amount:</u> &nbsp&nbsp<?php echo $amount  ?></p>
+
+                    <Button class="greenbtn">PAY MAINTENANCE</Button>
+                    <form action="payAmount.php" method="post" enctype="form-data">
+                        <label>Amount:</label><input type="text" name="amount" />
+                        </br>
+                        <input type="hidden" name = "flat_no" value="<?php echo $flat_no ?>">
+                        <input type="submit" value="SUBMIT" />
+                    </form>
+                </div>
+            </div>
+
+           
         </div>
     </div>
 

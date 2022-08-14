@@ -194,6 +194,12 @@ class data extends db {
         return $data;
     }
 
+    function getAmount($flat_no){
+        $q="SELECT * FROM maintenance where flat_no ='1'";
+        $data=$this->connection->query($q);
+        return $data;
+    }
+
 
 
     function requestbook($userid,$bookid){
@@ -392,53 +398,20 @@ class data extends db {
         else {
             header("Location:admin_service_dashboard1.php?msg=fail");
         }
-        // $recordSetss=$this->connection->query($q);
+    }
 
+    function addAmount($flat_no, $amount){
+        // $this->$flat_no= $flat_no;
+        // $this->$amount=$amount;
+        // log($name);
 
-        // $recordSet=$this->connection->query($q);
-        // $result=$recordSet->rowCount();
+        $q="UPDATE maintenance SET amount_paid='$amount' where flat_no='$flat_no'";
+        if($this->connection->exec($q)) {
+            header("Location:admin_service_dashboard.php?msg=done");
+        }
 
-        // if ($result > 0) {
-
-        //     foreach($recordSet->fetchAll() as $row) {
-        //         $issueid=$row['id'];
-        //         $issuetype=$row['type'];
-
-        //         // header("location: admin_service_dashboard.php?logid=$logid");
-        //     }
-        //     foreach($recordSetss->fetchAll() as $row) {
-        //         $bookid=$row['id'];
-        //         $bookname=$row['bookname'];
-
-        //             $newbookava=$row['bookava']-1;
-        //              $newbookrent=$row['bookrent']+1;
-        //     }
-
-        
-        //     $q="UPDATE book SET bookava='$newbookava', bookrent='$newbookrent' where id='$bookid'";
-        //     if($this->connection->exec($q)){
-
-        //     $q="INSERT INTO issuebook (userid,issuename,issuebook,issuetype,issuedays,issuedate,issuereturn,fine)VALUES('$issueid','$userselect','$book','$issuetype','$days','$getdate','$returnDate','0')";
-
-        //     if($this->connection->exec($q)) {
-        //         header("Location:admin_service_dashboard.php?msg=done");
-        //     }
-    
-        //     else {
-        //         header("Location:admin_service_dashboard.php?msg=fail");
-        //     }
-        //     }
-        //     else{
-        //        header("Location:admin_service_dashboard.php?msg=fail");
-        //     }
-
-
-        // }
-
-        // else {
-        //     header("location: index.php?msg=Invalid Credentials");
-        // }
-
-
+        else {
+            header("Location:admin_service_dashboard1.php?msg=fail");
+        }
     }
 }
