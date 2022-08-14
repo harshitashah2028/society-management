@@ -25,7 +25,6 @@ $userloginid=$_SESSION["userid"] = $_GET['userlogid'];
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <style>
 .innerright,
@@ -106,7 +105,6 @@ a {
             <div class="leftinnerdiv">
                 <Button class="greenbtn">Welcome</Button>
                 <Button class="greenbtn" onclick="openpart('myaccount')"> My Account</Button>
-                <Button class="greenbtn" onclick="openpart('requestbook')"> Request Book</Button>
                 <Button class="greenbtn" onclick="openpart('addComlain')"> Add Complain</Button>
                 <a href="index.php"><Button class="greenbtn"> LOGOUT</Button></a>
             </div>
@@ -151,61 +149,6 @@ a {
                         </br>
                         <input type="submit" value="SUBMIT" />
                     </form>
-                </div>
-            </div>
-
-
-            <div class="rightinnerdiv">
-                <div id="return" class="innerright portion"
-                    style="<?php  if(!empty($_REQUEST['returnid'])){ $returnid=$_REQUEST['returnid'];} else {echo "display:none"; }?>">
-                    s <Button class="greenbtn">Return Book</Button>
-
-                    <?php
-                        $u=new data;
-                        $u->setconnection();
-                        $u->returnbook($returnid);
-                        $recordset=$u->returnbook($returnid);
-                    ?>
-
-                </div>
-            </div> 
-
-
-            <div class="rightinnerdiv">
-                <div id="requestbook" class="innerright portion" style="<?php  
-            if(!empty($_REQUEST['returnid'])){ $returnid=$_REQUEST['returnid'];echo "display:none";} 
-            else {echo "display:none"; }?>">
-                    <Button class="greenbtn">Request Book</Button>
-
-                    <?php
-            $u=new data; 
-            $u->setconnection();
-            $u->getbookissue();
-            $recordset=$u->getbookissue();
-
-            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr>
-            <th>Image</th><th>Book Name</th><th>Book Authour</th><th>branch</th><th>price</th></th><th>Request Book</th></tr>";
-
-            foreach($recordset as $row){
-                $table.="<tr>";
-               "<td>$row[0]</td>";
-               $table.="<td><img src='uploads/$row[1]' width='100px' height='100px' style='border:1px solid #333333;'></td>";
-               $table.="<td>$row[2]</td>";
-                $table.="<td>$row[4]</td>";
-                $table.="<td>$row[6]</td>";
-                $table.="<td>$row[7]</td>";
-                $table.="<td><a href='requestbook.php?bookid=$row[0]&userid=$userloginid'><button type='button' class='btn btn-primary'>Request Book</button></a></td>";
-           
-                $table.="</tr>";
-                // $table.=$row[0];
-            }
-            $table.="</table>";
-
-            echo $table;
-
-
-                ?>
-
                 </div>
             </div>
 
