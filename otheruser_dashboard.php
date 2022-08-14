@@ -97,9 +97,8 @@ td, a{
             <div class="leftinnerdiv">
                 <Button class="greenbtn" >Welcome</Button>
                 <Button class="greenbtn" onclick="openpart('myaccount')"> My Account</Button>
-                <Button class="greenbtn" onclick="openpart('requestbook')"> PAY MAINTENANCE</Button>
-                <Button class="greenbtn" onclick="openpart('issuereport')"> ADD COMPLAINTS</Button>
-                <Button class="greenbtn" onclick="openpart('viewreport')"> VIEW REPORT</Button>
+                <Button class="greenbtn" onclick="openpart('requestbook')"> Request Book</Button>
+                <Button class="greenbtn" onclick="openpart('addComlain')"> Add Complain</Button>
                 <a href="index.php"><Button class="greenbtn" > LOGOUT</Button></a>
             </div>
 
@@ -131,44 +130,18 @@ td, a{
             </div>
             </div>
 
-
             
-
-
-
             <div class="rightinnerdiv">   
-            <div id="issuereport" class="innerright portion" style="<?php  if(!empty($_REQUEST['returnid'])){ echo "display:none";} else {echo "display:none"; }?>">
-            <Button class="greenbtn" >ISSUE RECORD</Button>
-
-            <?php
-
-            $userloginid=$_SESSION["userid"] = $_GET['userlogid'];
-            $u=new data;
-            $u->setconnection();
-            $u->getissuebook($userloginid);
-            $recordset=$u->getissuebook($userloginid);
-
-            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='  border: 1px solid #ddd;
-            padding: 8px;'>Name</th><th>Book Name</th><th>Issue Date</th><th>Return Date</th><th>Fine</th></th><th>Return</th></tr>";
-
-            foreach($recordset as $row){
-                $table.="<tr>";
-               "<td>$row[0]</td>";
-                $table.="<td>$row[2]</td>";
-                $table.="<td>$row[3]</td>";
-                $table.="<td>$row[6]</td>";
-                $table.="<td>$row[7]</td>";
-                $table.="<td>$row[8]</td>";
-                $table.="<td><a href='otheruser_dashboard.php?returnid=$row[0]&userlogid=$userloginid'><button type='button' class='btn btn-primary'>Return</button></a></td>";
-                $table.="</tr>";
-                // $table.=$row[0];
-            }
-            $table.="</table>";
-
-            echo $table;
-            ?>
-
-            </div>
+                <div id="addComlain" class="innerright portion" style="display:block">
+                    <Button class="greenbtn" >VIEW COMPLAIN</Button>
+                    <form action="add_complain.php" method="post" enctype="form-data">
+                    <label>Name:</label><input type="text" name="name"/>
+                        </br>
+                        <label>Complaint:</label><input type="text" name="complain"/>
+                        </br>
+                        <input type="submit" value="SUBMIT"/>
+                    </form>
+                </div>
             </div>
 
 
@@ -189,7 +162,9 @@ td, a{
 
 
             <div class="rightinnerdiv">   
-            <div id="requestbook" class="innerright portion" style="<?php  if(!empty($_REQUEST['returnid'])){ $returnid=$_REQUEST['returnid'];echo "display:none";} else {echo "display:none"; }?>">
+            <div id="requestbook" class="innerright portion" style="<?php  
+            if(!empty($_REQUEST['returnid'])){ $returnid=$_REQUEST['returnid'];echo "display:none";} 
+            else {echo "display:none"; }?>">
             <Button class="greenbtn" >Request Book</Button>
 
             <?php

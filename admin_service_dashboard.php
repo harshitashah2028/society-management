@@ -99,15 +99,14 @@ elseif($msg=="fail"){
 
         <div class="container">
         <div class="innerdiv">
-            <div class="row"><img class="imglogo" src="images/logo.png"/></div>
+            <div class="row"><img class="imglogo" src="images/logo.jpeg"/></div>
             <div class="leftinnerdiv"></Button>
             
             
                 <Button class="greenbtn"> ADMIN</Button>
                 <Button class="greenbtn" onclick="openpart('addbook')" >ADD MEMBERS</Button>
-                <Button class="greenbtn" onclick="openpart('bookreport')" > VIEW MAINTENANCE</Button>
-                <Button class="greenbtn" onclick="openpart('addperson')"> ADD REPORT</Button>
-                <Button class="greenbtn"  onclick="openpart('issuebook')"> VIEW COMPLAINTS</Button>
+                <Button class="greenbtn" onclick="openpart('viewmaintenance')" > VIEW MAINTENANCE</Button>
+                <Button class="greenbtn"  onclick="openpart('viewcomplaints')"> VIEW COMPLAINTS</Button>
                 <a href="index.php"><Button class="greenbtn" > LOGOUT</Button></a>
              </div>
             <div class="rightinnerdiv">   
@@ -149,17 +148,20 @@ elseif($msg=="fail"){
             <div class="rightinnerdiv">   
             <div id="addbook" class="innerright portion" style="<?php  if(!empty($_REQUEST['viewid'])){ echo "display:none";} else {echo ""; }?>">
             <Button class="greenbtn" >ADD MEMBERS</Button>
-            <form action="addbookserver_page.php" method="post" enctype="multipart/form-data">
-            <label>NAME:</label><input type="text" name="bookname"/>
+            <form action="add_members.php" method="post" enctype="form-data">
+            <label>NAME:</label><input type="text" name="name"/>
             </br>
-            <label>FLAT NO:</label><input  type="text" name="bookdetail"/></br>
-            <label>FAMILY MEMBERS:</label><input type="text" name="bookaudor"/></br>
-            <div>FLAT TYPE:<input type="radio" name="branch" value="RK"/>RK<input type="radio" name="branch" value="1BHK"/>1BHK<div style="margin-left:80px"><input type="radio" name="branch" value="2BHK"/>2BHK<input type="radio" name="branch" value="3BHK"/>3BHK</div>
-            <label>VEHICLE:</label><input type="text" name="bookpub"/></br>
+            <label>FLAT NO:</label><input  type="text" name="flat_number"/></br>
+            <label>FAMILY MEMBERS:</label><input type="text" name="family_members"/></br>
+            <div>FLAT TYPE:<input type="radio" name="flat_type" value="RK"/>RK
+                <input type="radio" name="flat_type" value="1BHK"/>1BHK<div style="margin-left:80px">
+                <input type="radio" name="flat_type" value="2BHK"/>2BHK
+                <input type="radio" name="flat_type" value="3BHK"/>3BHK</div>
+            <label>VEHICLE:</label><input type="text" name="vehicle"/></br>
             </div>   
-            <label>NO OF VEHICLE:</label><input  type="number" name="bookprice"/></br>
-            <label>CONTACT NUMBER:</label><input type="number" name="bookquantity"/></br>
-            <label>PHOTO</label><input  type="file" name="bookphoto"/></br>
+            <label>NO OF VEHICLE:</label><input  type="number" name="no_of_vehicle"/></br>
+            <label>CONTACT NUMBER:</label><input type="number" name="contact_number"/></br>
+            
             </br>
    
             <input type="submit" value="SUBMIT"/>
@@ -169,23 +171,16 @@ elseif($msg=="fail"){
             </form>
             </div>
             </div>
+        
 
-
-            <div class="rightinnerdiv">   
-            <div id="addperson" class="innerright portion" style="display:none">
-            <Button class="greenbtn" >ADD Person</Button>
+        <div class="rightinnerdiv">   
+           <div id="addperson" class="innerright portion" style="display:none">
+        <Button class="greenbtn" >ADD Person</Button>
             <form action="addpersonserver_page.php" method="post" enctype="multipart/form-data">
             <label>Name:</label><input type="text" name="addname"/>
             </br>
-            <label>Pasword:</label><input type="pasword" name="addpass"/>
+            <label>complaint:</label><input type="pasword" name="addpass"/>
             </br>
-            <label>Email:</label><input  type="email" name="addemail"/></br>
-            <label for="typw">Choose type:</label>
-            <select name="type" >
-                <option value="student">student</option>
-                <option value="teacher">teacher</option>
-            </select>
-
             <input type="submit" value="SUBMIT"/>
             </form>
             </div>
@@ -232,7 +227,7 @@ elseif($msg=="fail"){
             $recordset=$u->issuereport();
 
             $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='  border: 1px solid #ddd;
-            padding: 8px;'>Issue Name</th><th>Book Name</th><th>Issue Date</th><th>Return Date</th><th>Fine</th></th><th>Issue Type</th></tr>";
+            p adding: 8px;'>Issue Name</th><th>Book Name</th><th>Issue Date</th><th>Return Date</th><th>Fine</th></th><th>Issue Type</th></tr>";
 
             foreach($recordset as $row){
                 $table.="<tr>";
@@ -260,43 +255,18 @@ elseif($msg=="fail"){
 issue book -->
             <div class="rightinnerdiv">   
             <div id="issuebook" class="innerright portion" style="display:none">
-            <Button class="greenbtn" >ISSUE BOOK</Button>
-            <form action="issuebook_server.php" method="post" enctype="multipart/form-data">
-            <label for="book">Choose Book:</label>
-            <select name="book" >
-            <?php
-            $u=new data;
-            $u->setconnection();
-            $u->getbookissue();
-            $recordset=$u->getbookissue();
-            foreach($recordset as $row){
-
-                echo "<option value='". $row[2] ."'>" .$row[2] ."</option>";
-        
-            }            
-            ?>
-            </select>
-
-            <label for="Select Student">:</label>
-            <select name="userselect" >
-            <?php
-            $u=new data;
-            $u->setconnection();
-            $u->userdata();
-            $recordset=$u->userdata();
-            foreach($recordset as $row){
-               $id= $row[0];
-                echo "<option value='". $row[1] ."'>" .$row[1] ."</option>";
-            }            
-            ?>
-            </select>
-<br>
-            Days<input type="number" name="days"/>
-
+            <Button class="greenbtn" >VIEW COMPLAIN</Button>
+            <form action="add_complain.php" method="post" enctype="form-data">
+            <label>Name:</label><input type="text" name="name"/>
+            </br>
+            <label>Complaint:</label><input type="text" name="complain"/>
+            </br>
             <input type="submit" value="SUBMIT"/>
+            
             </form>
             </div>
             </div>
+
 
             <div class="rightinnerdiv">   
             <div id="bookdetail" class="innerright portion" style="<?php  if(!empty($_REQUEST['viewid'])){ $viewid=$_REQUEST['viewid'];} else {echo "display:none"; }?>">
@@ -327,41 +297,38 @@ issue book -->
 
             <img width='150px' height='150px' style='border:1px solid #333333; float:left;margin-left:20px' src="uploads/<?php echo $bookimg?> "/>
             </br>
-            <p style="color:black"><u>Book Name:</u> &nbsp&nbsp<?php echo $bookname ?></p>
-            <p style="color:black"><u>Book Detail:</u> &nbsp&nbsp<?php echo $bookdetail ?></p>
-            <p style="color:black"><u>Book Authour:</u> &nbsp&nbsp<?php echo $bookauthour ?></p>
-            <p style="color:black"><u>Book Publisher:</u> &nbsp&nbsp<?php echo $bookpub ?></p>
-            <p style="color:black"><u>Book Branch:</u> &nbsp&nbsp<?php echo $branch ?></p>
-            <p style="color:black"><u>Book Price:</u> &nbsp&nbsp<?php echo $bookprice ?></p>
-            <p style="color:black"><u>Book Available:</u> &nbsp&nbsp<?php echo $bookava ?></p>
-            <p style="color:black"><u>Book Rent:</u> &nbsp&nbsp<?php echo $bookrent ?></p>
+            <p style="color:black"><u>NAME:</u> &nbsp&nbsp<?php echo $bookname ?></p>
+            <p style="color:black"><u>FLAT NO:</u> &nbsp&nbsp<?php echo $bookdetail ?></p>
+            <p style="color:black"><u>FAMILY MEMBER:</u> &nbsp&nbsp<?php echo $bookauthour ?></p>
+            <p style="color:black"><u>FLAT TYPE:</u> &nbsp&nbsp<?php echo $bookpub ?></p>
+            <p style="color:black"><u>VEHICLE:</u> &nbsp&nbsp<?php echo $branch ?></p>
+            <p style="color:black"><u>NO OF VEHICLE:</u> &nbsp&nbsp<?php echo $bookprice ?></p>
+            <p style="color:black"><u>CONTACT NUMBER:</u> &nbsp&nbsp<?php echo $bookava ?></p>
 
-
-            </div>
+            </div>  
             </div>
 
 
 
             <div class="rightinnerdiv">   
-            <div id="bookreport" class="innerright portion" style="display:none">
-            <Button class="greenbtn" >BOOK RECORD</Button>
+            <div id="viewmaintenance" class="innerright portion" style="display:none">
+            <Button class="greenbtn" >VIEW MAINTENANCE</Button>
             <?php
             $u=new data;
             $u->setconnection();
-            $u->getbook();
-            $recordset=$u->getbook();
+            $u->getMaintenance();
+            $recordset=$u->getMaintenance();
 
             $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='  border: 1px solid #ddd;
-            padding: 8px;'>Book Name</th><th>Price</th><th>Qnt</th><th>Available</th><th>Rent</th></th><th>View</th></tr>";
+            padding: 8px;'>Flat No</th><th>FLAT OWNER</th><th>AMOUNT PAID</th><th>AMOUNT PENDING</th></tr>";
             foreach($recordset as $row){
                 $table.="<tr>";
                "<td>$row[0]</td>";
+               $table.="<td>$row[0]</td>";
+                $table.="<td>$row[1]</td>";
                 $table.="<td>$row[2]</td>";
-                $table.="<td>$row[7]</td>";
-                $table.="<td>$row[8]</td>";
-                $table.="<td>$row[9]</td>";
-                $table.="<td>$row[10]</td>";
-                $table.="<td><a href='admin_service_dashboard.php?viewid=$row[0]'><button type='button' class='btn btn-primary'>View BOOK</button></a></td>";
+                $table.="<td>$row[3]</td>";
+                // $table.="<td><a href='admin_service_dashboard.php?viewid=$row[0]'><button type='button' class='btn btn-primary'>View BOOK</button></a></td>";
                 // $table.="<td><a href='deletebook_dashboard.php?deletebookid=$row[0]'>Delete</a></td>";
                 $table.="</tr>";
                 // $table.=$row[0];
@@ -373,6 +340,39 @@ issue book -->
 
             </div>
             </div>
+
+
+            <div class="rightinnerdiv">   
+            <div id="viewcomplaints" class="innerright portion" style="display:none">
+            <Button class="greenbtn" >VIEW MAINTENANCE</Button>
+            <?php
+            $u=new data;
+            $u->setconnection();
+            $u->getComplainList();
+            $recordset=$u->getComplainList();
+
+            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='  border: 1px solid #ddd;
+            padding: 8px;'>User Id</th><th>User Name</th><th>Complain</th>tr>";
+            foreach($recordset as $row){
+                $table.="<tr>";
+               "<td>$row[0]</td>";
+               $table.="<td>$row[0]</td>";
+                $table.="<td>$row[1]</td>";
+                $table.="<td>$row[2]</td>";
+                // $table.="<td>$row[3]</td>";
+                // $table.="<td><a href='admin_service_dashboard.php?viewid=$row[0]'><button type='button' class='btn btn-primary'>View BOOK</button></a></td>";
+                // $table.="<td><a href='deletebook_dashboard.php?deletebookid=$row[0]'>Delete</a></td>";
+                $table.="</tr>";
+                // $table.=$row[0];
+            }
+            $table.="</table>";
+
+            echo $table;
+            ?>
+
+            </div>
+            </div>
+
 
 
 

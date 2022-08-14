@@ -2,15 +2,14 @@
 
 class data extends db {
 
-    private $bookpic;
-    private $bookname;
-    private $bookdetail;
-    private $bookaudor;
-    private $bookpub;
-    private $branch;
-    private $bookprice;
-    private $bookquantity;
-    private $type;
+    private $name;
+    private $flatNumber;
+    private $familyMembers;
+    private $flatType;
+    private $vehicle;
+    private $noOfVehicle;
+    private $contactNumber;
+    // private $type;
 
     private $book;
     private $userselect;
@@ -26,7 +25,7 @@ class data extends db {
         // echo " constructor ";
         echo "</br></br>";
     }
-
+    // function addcomplains($Name,$Email)
 
     function addnewuser($name,$pasword,$email,$type){
         $this->name=$name;
@@ -62,7 +61,7 @@ class data extends db {
 
         else {
             
-            header("location: index.php?msg=Invalid ");
+            header("location: index.php?msg=Invalid Credentials");
         }
     }
 
@@ -88,24 +87,24 @@ class data extends db {
 
 
 
-    function addbook($bookpic, $bookname, $bookdetail, $bookaudor, $bookpub, $branch, $bookprice, $bookquantity) {
-        $this->$bookpic=$bookpic;
-        $this->bookname=$bookname;
-        $this->bookdetail=$bookdetail;
-        $this->bookaudor=$bookaudor;
-        $this->bookpub=$bookpub;
-        $this->branch=$branch;
-        $this->bookprice=$bookprice;
-        $this->bookquantity=$bookquantity;
+    function addbook($name,$flatNumber,$familyMember,$flatType,$vehicle,$noOfVehicle,$contactNumber) {
+        $this->$name=$name;
+        $this->flatNumber=$flatNumber;
+        $this->familyMember=$familyMember;
+        $this->flatType=$flatType;
+        $this->vehicle=$vehicle;
+        $this->noOfVehicle=$noOfVehicle;
+        $this->contactNumber=$contactNumber;
+       
 
-       $q="INSERT INTO book (id,bookpic,bookname, bookdetail, bookaudor, bookpub, branch, bookprice,bookquantity,bookava,bookrent)VALUES('','$bookpic', '$bookname', '$bookdetail', '$bookaudor', '$bookpub', '$branch', '$bookprice', '$bookquantity','$bookquantity',0)";
+       $q="INSERT INTO flat_details(flat_no,name,family_member,flat_type,vehicle,no_of_vehicle,contact_number)VALUES('$flatNumber','$name','$familyMember','$flatType','$vehicle','$noOfVehicle','$contactNumber')";
 
         if($this->connection->exec($q)) {
             header("Location:admin_service_dashboard.php?msg=done");
         }
 
         else {
-            header("Location:admin_service_dashboard.php?msg=fail");
+            header("Location:admin_service_dashboard1.php?msg=fail");
         }
 
     }
@@ -156,19 +155,20 @@ class data extends db {
             return $data;
 
         }
-
-
-
-
-
-
     }
 
-    function getbook() {
-        $q="SELECT * FROM book ";
+    function getMaintenance() {
+        $q="SELECT * FROM maintenance";
         $data=$this->connection->query($q);
         return $data;
     }
+
+    function getComplainList() {
+        $q="SELECT * FROM complaint";
+        $data=$this->connection->query($q);
+        return $data;
+    }
+
     function getbookissue(){
         $q="SELECT * FROM book where bookava !=0 ";
         $data=$this->connection->query($q);
@@ -380,61 +380,64 @@ class data extends db {
     }
     
     // issue book
-    function issuebook($book,$userselect,$days,$getdate,$returnDate){
-        $this->$book= $book;
-        $this->$userselect=$userselect;
-        $this->$days=$days;
-        $this->$getdate=$getdate;
-        $this->$returnDate=$returnDate;
-
-
-        $q="SELECT * FROM book where bookname='$book'";
-        $recordSetss=$this->connection->query($q);
-
-        $q="SELECT * FROM userdata where name='$userselect'";
-        $recordSet=$this->connection->query($q);
-        $result=$recordSet->rowCount();
-
-        if ($result > 0) {
-
-            foreach($recordSet->fetchAll() as $row) {
-                $issueid=$row['id'];
-                $issuetype=$row['type'];
-
-                // header("location: admin_service_dashboard.php?logid=$logid");
-            }
-            foreach($recordSetss->fetchAll() as $row) {
-                $bookid=$row['id'];
-                $bookname=$row['bookname'];
-
-                    $newbookava=$row['bookava']-1;
-                     $newbookrent=$row['bookrent']+1;
-            }
-
-        
-            $q="UPDATE book SET bookava='$newbookava', bookrent='$newbookrent' where id='$bookid'";
-            if($this->connection->exec($q)){
-
-            $q="INSERT INTO issuebook (userid,issuename,issuebook,issuetype,issuedays,issuedate,issuereturn,fine)VALUES('$issueid','$userselect','$book','$issuetype','$days','$getdate','$returnDate','0')";
-
-            if($this->connection->exec($q)) {
-                header("Location:admin_service_dashboard.php?msg=done");
-            }
-    
-            else {
-                header("Location:admin_service_dashboard.php?msg=fail");
-            }
-            }
-            else{
-               header("Location:admin_service_dashboard.php?msg=fail");
-            }
-
-
+    function addComplain($name,$complain){
+        $this->$name= $name;
+        $this->$complain=$complain;
+        log($name);
+        $q="INSERT INTO complaint(name,complains)VALUES('$name','$complain')";
+        if($this->connection->exec($q)) {
+            header("Location:admin_service_dashboard.php?msg=done");
         }
 
         else {
-            header("location: index.php?msg=Invalid Credentials");
+            header("Location:admin_service_dashboard1.php?msg=fail");
         }
+        // $recordSetss=$this->connection->query($q);
+
+
+        // $recordSet=$this->connection->query($q);
+        // $result=$recordSet->rowCount();
+
+        // if ($result > 0) {
+
+        //     foreach($recordSet->fetchAll() as $row) {
+        //         $issueid=$row['id'];
+        //         $issuetype=$row['type'];
+
+        //         // header("location: admin_service_dashboard.php?logid=$logid");
+        //     }
+        //     foreach($recordSetss->fetchAll() as $row) {
+        //         $bookid=$row['id'];
+        //         $bookname=$row['bookname'];
+
+        //             $newbookava=$row['bookava']-1;
+        //              $newbookrent=$row['bookrent']+1;
+        //     }
+
+        
+        //     $q="UPDATE book SET bookava='$newbookava', bookrent='$newbookrent' where id='$bookid'";
+        //     if($this->connection->exec($q)){
+
+        //     $q="INSERT INTO issuebook (userid,issuename,issuebook,issuetype,issuedays,issuedate,issuereturn,fine)VALUES('$issueid','$userselect','$book','$issuetype','$days','$getdate','$returnDate','0')";
+
+        //     if($this->connection->exec($q)) {
+        //         header("Location:admin_service_dashboard.php?msg=done");
+        //     }
+    
+        //     else {
+        //         header("Location:admin_service_dashboard.php?msg=fail");
+        //     }
+        //     }
+        //     else{
+        //        header("Location:admin_service_dashboard.php?msg=fail");
+        //     }
+
+
+        // }
+
+        // else {
+        //     header("location: index.php?msg=Invalid Credentials");
+        // }
 
 
     }

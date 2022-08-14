@@ -1,5 +1,8 @@
 /* index design */
 
+.body{
+    background-image: url('/image/1.jpeg');
+}
 .container,
 .row,
 .h2 {
@@ -46,7 +49,7 @@
 
 .login-form-1 .btnSubmit {
     font-weight: 600;
-    color: #fff;
+    color: rgb(255, 255, 255);
     background-color: #0062cc;
 }
 
