@@ -87,20 +87,20 @@ a {
 <body>
 
     <?php
-   include("data_class.php");
+        include("data_class.php");
 
-$msg="";
+        $msg="";
 
-   if(!empty($_REQUEST['msg'])){
-    $msg=$_REQUEST['msg'];
- }
+        if(!empty($_REQUEST['msg'])){
+            $msg=$_REQUEST['msg'];
+        }
 
-if($msg=="done"){
-    echo "<div class='alert alert-success' role='alert'>Sucssefully Done</div>";
-}
-elseif($msg=="fail"){
-    echo "<div class='alert alert-danger' role='alert'>Fail</div>";
-}
+        if($msg=="done"){
+            echo "<div class='alert alert-success' role='alert'>Sucssefully Done</div>";
+        }
+        elseif($msg=="fail"){
+            echo "<div class='alert alert-danger' role='alert'>Fail</div>";
+        }
 
     ?>
 
@@ -202,27 +202,27 @@ elseif($msg=="fail"){
                     <Button class="greenbtn">Student RECORD</Button>
 
                     <?php
-            $u=new data;
-            $u->setconnection();
-            $u->userdata();
-            $recordset=$u->userdata();
+                        $u=new data;
+                        $u->setconnection();
+                        $u->userdata();
+                        $recordset=$u->userdata();
 
-            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='  border: 1px solid #ddd;
-            padding: 8px;'> Name</th><th>Email</th><th>Type</th></tr>";
-            foreach($recordset as $row){
-                $table.="<tr>";
-               "<td>$row[0]</td>";
-                $table.="<td>$row[1]</td>";
-                $table.="<td>$row[2]</td>";
-                $table.="<td>$row[4]</td>";
-                // $table.="<td><a href='deleteuser.php?useriddelete=$row[0]'>Delete</a></td>";
-                $table.="</tr>";
-                // $table.=$row[0];
-            }
-            $table.="</table>";
+                        $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='  border: 1px solid #ddd;
+                        padding: 8px;'> Name</th><th>Email</th><th>Type</th></tr>";
+                        foreach($recordset as $row){
+                            $table.="<tr>";
+                        "<td>$row[0]</td>";
+                            $table.="<td>$row[1]</td>";
+                            $table.="<td>$row[2]</td>";
+                            $table.="<td>$row[4]</td>";
+                            // $table.="<td><a href='deleteuser.php?useriddelete=$row[0]'>Delete</a></td>";
+                            $table.="</tr>";
+                            // $table.=$row[0];
+                        }
+                        $table.="</table>";
 
-            echo $table;
-            ?>
+                        echo $table;
+                    ?>
 
                 </div>
             </div>
@@ -232,31 +232,31 @@ elseif($msg=="fail"){
                     <Button class="greenbtn">Issue Book Record </Button>
 
                     <?php
-            $u=new data;
-            $u->setconnection();
-            $u->issuereport();
-            $recordset=$u->issuereport();
+                        $u=new data;
+                        $u->setconnection();
+                        $u->issuereport();
+                        $recordset=$u->issuereport();
 
-            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='  border: 1px solid #ddd;
-            p adding: 8px;'>Issue Name</th><th>Book Name</th><th>Issue Date</th><th>Return Date</th><th>Fine</th></th><th>Issue Type</th></tr>";
+                        $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='  border: 1px solid #ddd;
+                        p adding: 8px;'>Issue Name</th><th>Book Name</th><th>Issue Date</th><th>Return Date</th><th>Fine</th></th><th>Issue Type</th></tr>";
 
-            foreach($recordset as $row){
-                $table.="<tr>";
-               "<td>$row[0]</td>";
-                $table.="<td>$row[2]</td>";
-                $table.="<td>$row[3]</td>";
-                $table.="<td>$row[6]</td>";
-                $table.="<td>$row[7]</td>";
-                $table.="<td>$row[8]</td>";
-                $table.="<td>$row[4]</td>";
-                // $table.="<td><a href='otheruser_dashboard.php?returnid=$row[0]&userlogid=$userloginid'>Return</a></td>";
-                $table.="</tr>";
-                // $table.=$row[0];
-            }
-            $table.="</table>";
+                        foreach($recordset as $row){
+                            $table.="<tr>";
+                        "<td>$row[0]</td>";
+                            $table.="<td>$row[2]</td>";
+                            $table.="<td>$row[3]</td>";
+                            $table.="<td>$row[6]</td>";
+                            $table.="<td>$row[7]</td>";
+                            $table.="<td>$row[8]</td>";
+                            $table.="<td>$row[4]</td>";
+                            // $table.="<td><a href='otheruser_dashboard.php?returnid=$row[0]&userlogid=$userloginid'>Return</a></td>";
+                            $table.="</tr>";
+                            // $table.=$row[0];
+                        }
+                        $table.="</table>";
 
-            echo $table;
-            ?>
+                        echo $table;
+                    ?>
 
                 </div>
             </div>

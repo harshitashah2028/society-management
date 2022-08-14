@@ -1,14 +1,3 @@
-<?php
-
-session_start();
-
-$userloginid=$_SESSION["userid"] = $_GET['userlogid'];
-// echo $_SESSION["userid"];
-
-
-?>
-
-
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -98,11 +87,28 @@ a {
 <body>
 
     <?php
-   include("data_class.php");
+        include("data_class.php");
+
+        $msg="";
+
+        if(!empty($_REQUEST['msg'])){
+            $msg=$_REQUEST['msg'];
+        }
+
+        if($msg=="done"){
+            echo "<div class='alert alert-success' role='alert'>Sucssefully Done</div>";
+        }
+        elseif($msg=="fail"){
+            echo "<div class='alert alert-danger' role='alert'>Fail</div>";
+        }
+
     ?>
+
+
+
     <div class="container">
         <div class="innerdiv">
-            <div class="row"><img class="imglogo" src="images/logo.png" /></div>
+        <div class="row"><img class="imglogo" src="images/logo.png" /></div>
             <div class="leftinnerdiv">
                 <Button class="greenbtn">Welcome</Button>
                 <Button class="greenbtn" onclick="openpart('myaccount')"> My Account</Button>
@@ -112,6 +118,8 @@ a {
             </div>
 
 
+
+            
             <div class="rightinnerdiv">
                 <div id="myaccount" class="innerright portion"
                     style="<?php  if(!empty($_REQUEST['returnid'])){ echo "display:none";} else {echo ""; }?>">
