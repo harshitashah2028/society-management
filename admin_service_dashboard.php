@@ -90,16 +90,24 @@ a {
 th {
     background-color: lightgray;
     color: black;
+    border: 1px solid black;
+    padding-left: 10px;
 }
 
 td {
     background-color: lightgray;
     color: black;
+    border: 1px solid black;
+    padding-left: 10px;
 }
 
 td,
 a {
     color: black;
+}
+td{
+    border: 1px solid black;
+    padding-left: 10px;
 }
 </style>
 
@@ -129,51 +137,13 @@ a {
         <div class="innerdiv">
             <div class="row"><img class="imglogo" src="images/society.png" /></div>
             <div class="leftinnerdiv"></Button>
-
-
                 <Button class="greenbtn"> ADMIN</Button>
                 <Button class="greenbtn" onclick="openpart('addbook')">ADD MEMBERS</Button>
                 <Button class="greenbtn" onclick="openpart('viewmaintenance')"> VIEW MAINTENANCE</Button>
                 <Button class="greenbtn" onclick="openpart('viewcomplaints')"> VIEW COMPLAINTS</Button>
                 <a href="index.php"><Button class="greenbtn"> LOGOUT</Button></a>
             </div>
-            <div class="rightinnerdiv">
-                <div id="bookrequestapprove" class="innerright portion" style="display:none">
-                    <Button class="greenbtn">BOOK REQUEST APPROVE</Button>
-
-                    <?php
-            $u=new data;
-            $u->setconnection();
-            $u->requestbookdata();
-            $recordset=$u->requestbookdata();
-
-            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'>
-            <tr style='backgroundColor: dimgray;'><th style='
-            padding: 8px;'>Person Name</th><th>person type</th><th>Book name</th><th>Days </th><th>Approve</th></tr>";
-            foreach($recordset as $row){
-                $table.="<tr>";
-               "<td>$row[0]</td>";
-              "<td>$row[1]</td>";
-              "<td>$row[2]</td>";
-
-                $table.="<td>$row[3]</td>";
-                $table.="<td>$row[4]</td>";
-                $table.="<td>$row[5]</td>";
-                $table.="<td>$row[6]</td>";
-               // $table.="<td><a href='approvebookrequest.php?reqid=$row[0]&book=$row[5]&userselect=$row[3]&days=$row[6]'><button type='button' class='btn btn-primary'>Approved BOOK</button></a></td>";
-                 $table.="<td><a href='approvebookrequest.php?reqid=$row[0]&book=$row[5]&userselect=$row[3]&days=$row[6]'>Approved</a></td>";
-                // $table.="<td><a href='deletebook_dashboard.php?deletebookid=$row[0]'>Delete</a></td>";
-                $table.="</tr>";
-                // $table.=$row[0];
-            }
-            $table.="</table>";
-
-            echo $table;
-            ?>
-
-                </div>
-            </div>
-
+            
             <div class="rightinnerdiv">
                 <div id="addbook" class="innerright portion"
                     style="<?php  if(!empty($_REQUEST['viewid'])){ echo "display:none";} else {echo ""; }?>">
@@ -215,146 +185,7 @@ a {
                     </form>
                 </div>
             </div>
-
-
-            <div class="rightinnerdiv">
-                <div id="addperson" class="innerright portion" style="display:none">
-                    <Button class="greenbtn">ADD Person</Button>
-                    <form action="addpersonserver_page.php" method="post" enctype="multipart/form-data">
-                        <label>Name:</label><input type="text" name="addname" />
-                        </br>
-                        <label>complaint:</label><input type="pasword" name="addpass" />
-                        </br>
-                        <input type="submit" value="SUBMIT" />
-                    </form>
-                </div>
-            </div>
-
-            <div class="rightinnerdiv">
-                <div id="studentrecord" class="innerright portion" style="display:none">
-                    <Button class="greenbtn">Student RECORD</Button>
-
-                    <?php
-                        $u=new data;
-                        $u->setconnection();
-                        $u->userdata();
-                        $recordset=$u->userdata();
-
-                        $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='  border: 1px solid #ddd;
-                        padding: 8px;'> Name</th><th>Email</th><th>Type</th></tr>";
-                        foreach($recordset as $row){
-                            $table.="<tr>";
-                        "<td>$row[0]</td>";
-                            $table.="<td>$row[1]</td>";
-                            $table.="<td>$row[2]</td>";
-                            $table.="<td>$row[4]</td>";
-                            // $table.="<td><a href='deleteuser.php?useriddelete=$row[0]'>Delete</a></td>";
-                            $table.="</tr>";
-                            // $table.=$row[0];
-                        }
-                        $table.="</table>";
-
-                        echo $table;
-                    ?>
-
-                </div>
-            </div>
-
-            <div class="rightinnerdiv">
-                <div id="issuebookreport" class="innerright portion" style="display:none">
-                    <Button class="greenbtn">Issue Book Record </Button>
-
-                    <?php
-                        $u=new data;
-                        $u->setconnection();
-                        $u->issuereport();
-                        $recordset=$u->issuereport();
-
-                        $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='  border: 1px solid #ddd;
-                        p adding: 8px;'>Issue Name</th><th>Book Name</th><th>Issue Date</th><th>Return Date</th><th>Fine</th></th><th>Issue Type</th></tr>";
-
-                        foreach($recordset as $row){
-                            $table.="<tr>";
-                        "<td>$row[0]</td>";
-                            $table.="<td>$row[2]</td>";
-                            $table.="<td>$row[3]</td>";
-                            $table.="<td>$row[6]</td>";
-                            $table.="<td>$row[7]</td>";
-                            $table.="<td>$row[8]</td>";
-                            $table.="<td>$row[4]</td>";
-                            // $table.="<td><a href='otheruser_dashboard.php?returnid=$row[0]&userlogid=$userloginid'>Return</a></td>";
-                            $table.="</tr>";
-                            // $table.=$row[0];
-                        }
-                        $table.="</table>";
-
-                        echo $table;
-                    ?>
-
-                </div>
-            </div>
-
-            <!--             
-
-issue book -->
-            <div class="rightinnerdiv">
-                <div id="issuebook" class="innerright portion" style="display:none">
-                    <Button class="greenbtn">VIEW COMPLAIN</Button>
-                    <form action="add_complain.php" method="post" enctype="form-data">
-                        <label>Name:</label><input type="text" name="name" />
-                        </br>
-                        <label>Complaint:</label><input type="text" name="complain" />
-                        </br>
-                        <input type="submit" value="SUBMIT" />
-
-                    </form>
-                </div>
-            </div>
-
-
-            <div class="rightinnerdiv">
-                <div id="bookdetail" class="innerright portion"
-                    style="<?php  if(!empty($_REQUEST['viewid'])){ $viewid=$_REQUEST['viewid'];} else {echo "display:none"; }?>">
-
-                    <Button class="greenbtn">BOOK DETAIL</Button>
-                    </br>
-                    <?php
-            $u=new data;
-            $u->setconnection();
-            $u->getbookdetail($viewid);
-            $recordset=$u->getbookdetail($viewid);
-            foreach($recordset as $row){
-
-                $bookid= $row[0];
-               $bookimg= $row[1];
-               $bookname= $row[2];
-               $bookdetail= $row[3];
-               $bookauthour= $row[4];
-               $bookpub= $row[5];
-               $branch= $row[6];
-               $bookprice= $row[7];
-               $bookquantity= $row[8];
-               $bookava= $row[9];
-               $bookrent= $row[10];
-
-            }            
-?>
-
-                    <img width='150px' height='150px' style='border:1px solid #333333; float:left;margin-left:20px'
-                        src="uploads/<?php echo $bookimg?> " />
-                    </br>
-                    <p style="color:black"><u>NAME:</u> &nbsp&nbsp<?php echo $bookname ?></p>
-                    <p style="color:black"><u>FLAT NO:</u> &nbsp&nbsp<?php echo $bookdetail ?></p>
-                    <p style="color:black"><u>FAMILY MEMBER:</u> &nbsp&nbsp<?php echo $bookauthour ?></p>
-                    <p style="color:black"><u>FLAT TYPE:</u> &nbsp&nbsp<?php echo $bookpub ?></p>
-                    <p style="color:black"><u>VEHICLE:</u> &nbsp&nbsp<?php echo $branch ?></p>
-                    <p style="color:black"><u>NO OF VEHICLE:</u> &nbsp&nbsp<?php echo $bookprice ?></p>
-                    <p style="color:black"><u>CONTACT NUMBER:</u> &nbsp&nbsp<?php echo $bookava ?></p>
-
-                </div>
-            </div>
-
-
+          
 
             <div class="rightinnerdiv">
                 <div id="viewmaintenance" class="innerright portion" style="display:none">
@@ -365,8 +196,12 @@ issue book -->
             $u->getMaintenance();
             $recordset=$u->getMaintenance();
 
-            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='  border: 1px solid #ddd;
-            padding: 8px;'>Flat No</th><th>FLAT OWNER</th><th>AMOUNT PAID</th><th>AMOUNT PENDING</th></tr>";
+            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'>
+            <tr><th style='background-color: dimgray;
+            padding: 8px;'>Flat No</th>
+            <th style='background-color: dimgray;'>FLAT OWNER</th>
+            <th style='background-color: dimgray;'>AMOUNT PAID</th>
+            <th style='background-color: dimgray;'>AMOUNT PENDING</th></tr>";
             foreach($recordset as $row){
                 $table.="<tr>";
                "<td>$row[0]</td>";
@@ -397,7 +232,10 @@ issue book -->
             $u->getComplainList();
             $recordset=$u->getComplainList();
 
-            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th>User Id</th><th>User Name</th><th>Complain</th></tr>";
+            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'>
+            <tr style='background-color: dimgray;'><th style='background-color: dimgray; padding: 8px;'>User Id</th>
+            <th style='background-color: dimgray;'>User Name</th>
+            <th style='background-color: dimgray;'>Complain</th></tr>";
             foreach($recordset as $row){
                 $table.="<tr>";
                "<td>$row[0]</td>";
@@ -417,10 +255,6 @@ issue book -->
 
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
 
