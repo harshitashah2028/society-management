@@ -35,20 +35,24 @@ $userloginid=$_SESSION["userid"] = $_GET['userlogid'];
 }
 .innerright,
 label {
-    color: rgb(16, 170, 16);
+    color: dimgrey;
     font-weight: bold;
 }
 
 .container,
-.row,
 .imglogo {
     margin: auto;
+}
+
+.row{
+    /* margin: auto; */
+    padding-bottom: 20px;
 }
 
 .innerdiv {
     text-align: center;
     /* width: 500px; */
-    margin: 100px;
+    margin: 10px;
 }
 
 input {
@@ -66,11 +70,11 @@ input {
 }
 
 .innerright {
-    background-color: rgb(105, 221, 105);
+    background-color: ;
 }
 
 .greenbtn {
-    background-color: rgb(16, 170, 16);
+    background-color: dimgrey;
     color: white;
     width: 95%;
     height: 40px;
@@ -120,7 +124,7 @@ a {
     ?>
     <div class="container">
         <div class="innerdiv">
-            <div class="row"><img class="imglogo" src="images/logo.png" /></div>
+            <div class="row"><img class="imglogo" src="images/society.png" /></div>
             <div class="leftinnerdiv">
                 <Button class="greenbtn">Welcome</Button>
                 <Button class="greenbtn" onclick="openpart('myaccount')"> My Account</Button>

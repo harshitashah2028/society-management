@@ -23,20 +23,26 @@
 }
 .innerright,
 label {
-    color: rgb(16, 170, 16);
+    color: dimgray;
     font-weight: bold;
 }
 
 .container,
-.row,
 .imglogo {
     margin: auto;
 }
 
-.innerdiv {
-    text-align: center;
-    /* width: 500px; */
-    margin: 100px;
+.row{
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.contentDiv{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 100px;
+    padding-top: 10px;
+    margin-right: 200px;
 }
 
 input {
@@ -54,11 +60,20 @@ input {
 }
 
 .innerright {
-    background-color: rgb(105, 221, 105);
+    /* background-color: ; */
+    
 }
 
+/* .formDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 100px;
+} */
+
 .greenbtn {
-    background-color: rgb(16, 170, 16);
+    background-color: dimgray;
     color: white;
     width: 95%;
     height: 40px;
@@ -73,12 +88,12 @@ a {
 }
 
 th {
-    background-color: orange;
+    background-color: lightgray;
     color: black;
 }
 
 td {
-    background-color: #fed8b1;
+    background-color: lightgray;
     color: black;
 }
 
@@ -112,7 +127,7 @@ a {
 
     <div class="container">
         <div class="innerdiv">
-            <div class="row"><img class="imglogo" src="images/logo.jpeg" /></div>
+            <div class="row"><img class="imglogo" src="images/society.png" /></div>
             <div class="leftinnerdiv"></Button>
 
 
@@ -132,7 +147,8 @@ a {
             $u->requestbookdata();
             $recordset=$u->requestbookdata();
 
-            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='  border: 1px solid #ddd;
+            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'>
+            <tr style='backgroundColor: dimgray;'><th style='
             padding: 8px;'>Person Name</th><th>person type</th><th>Book name</th><th>Days </th><th>Approve</th></tr>";
             foreach($recordset as $row){
                 $table.="<tr>";
@@ -163,23 +179,36 @@ a {
                     style="<?php  if(!empty($_REQUEST['viewid'])){ echo "display:none";} else {echo ""; }?>">
                     <Button class="greenbtn">ADD MEMBERS</Button>
                     <form action="add_members.php" method="post" enctype="form-data">
-                        <label>NAME:</label><input type="text" name="name" />
-                        </br>
-                        <label>FLAT NO:</label><input type="text" name="flat_number" /></br>
-                        <label>FAMILY MEMBERS:</label><input type="text" name="family_members" /></br>
-                        <div>FLAT TYPE:<input type="radio" name="flat_type" value="RK" />RK
-                            <input type="radio" name="flat_type" value="1BHK" />1BHK<div style="margin-left:80px">
-                                <input type="radio" name="flat_type" value="2BHK" />2BHK
-                                <input type="radio" name="flat_type" value="3BHK" />3BHK
-                            </div>
-                            <label>VEHICLE:</label><input type="text" name="vehicle" /></br>
+                        <div class="contentDiv">
+                            <label>NAME:</label>
+                            <input type="text" name="name" />
                         </div>
-                        <label>NO OF VEHICLE:</label><input type="number" name="no_of_vehicle" /></br>
-                        <label>CONTACT NUMBER:</label><input type="number" name="contact_number" /></br>
+                        <div class="contentDiv">
+                            <label>FLAT NO:</label><input type="text" name="flat_number" />
+                        </div>
+                        <div class="contentDiv">
+                            <label>FAMILY MEMBERS:</label><input type="text" name="family_members" />
+                        </div>
+                        <div class="contentDiv">
+                            FLAT TYPE:
+                            <div><input type="radio" name="flat_type" value="RK" />RK</div>
+                            <div><input type="radio" name="flat_type" value="1BHK" />1BHK</div>
+                            <div><input type="radio" name="flat_type" value="2BHK" />2BHK</div>
+                            <div><input type="radio" name="flat_type" value="3BHK" />3BHK</div>
+                        </div>
+                        <div class="contentDiv">
+                        <label>VEHICLE:</label><input type="text" name="vehicle" />
+                        </div>
+                        <div class="contentDiv">
+                        <label>NO OF VEHICLE:</label><input type="number" name="no_of_vehicle" />
+                        </div>
+                        <div class="contentDiv">
+                            <label>CONTACT NUMBER:</label><input type="number" name="contact_number" />
+                        </div>
 
-                        </br>
-
-                        <input type="submit" value="SUBMIT" />
+                        <div style="margin-left: 250px"> 
+                            <input type="submit" value="SUBMIT" />
+                        </div>
                         </br>
                         </br>
 
@@ -368,8 +397,7 @@ issue book -->
             $u->getComplainList();
             $recordset=$u->getComplainList();
 
-            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='  border: 1px solid #ddd;
-            padding: 8px;'>User Id</th><th>User Name</th><th>Complain</th>tr>";
+            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th>User Id</th><th>User Name</th><th>Complain</th></tr>";
             foreach($recordset as $row){
                 $table.="<tr>";
                "<td>$row[0]</td>";
