@@ -9,7 +9,6 @@ class data extends db {
     private $vehicle;
     private $noOfVehicle;
     private $contactNumber;
-    // private $type;
 
     private $book;
     private $userselect;
@@ -195,7 +194,7 @@ class data extends db {
     }
 
     function getAmount($flat_no){
-        $q="SELECT * FROM maintenance where flat_no ='1'";
+        $q="SELECT * FROM maintenance where flat_no ='$flat_no'";
         $data=$this->connection->query($q);
         return $data;
     }
@@ -372,20 +371,13 @@ class data extends db {
             else{
                header("Location:admin_service_dashboard.php?msg=fail");
             }
-
-
-
-
         }
 
         else {
             header("location: index.php?msg=Invalid Credentials");
         }
-
-
     }
     
-    // issue book
     function addComplain($name,$complain){
         $this->$name= $name;
         $this->$complain=$complain;
@@ -400,18 +392,15 @@ class data extends db {
         }
     }
 
-    function addAmount($flat_no, $amount){
-        // $this->$flat_no= $flat_no;
-        // $this->$amount=$amount;
-        // log($name);
+    function addAmount($userid, $flat_no, $pending_amount, $amount){
 
-        $q="UPDATE maintenance SET amount_paid='$amount' where flat_no='$flat_no'";
+        $q="UPDATE maintenance SET pending_amount='$pending_amount',amount_paid='$amount' where flat_no='$flat_no'";
         if($this->connection->exec($q)) {
-            header("Location:admin_service_dashboard.php?msg=done");
+            header("Location:otheruser_dashboard.php?userlogid=$userid&msg=done");
         }
 
         else {
-            header("Location:admin_service_dashboard1.php?msg=fail");
+            header("Location:otheruser_dashboard.php?userlogid=$userid&msg=done");
         }
     }
 }

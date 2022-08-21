@@ -23,6 +23,11 @@ label {
     font-weight: bold;
 }
 
+body{
+    background-image: url('images/1.jpg');
+    background-size: cover;
+}
+
 .container,
 .row,
 .imglogo {

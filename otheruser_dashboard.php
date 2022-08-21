@@ -25,8 +25,14 @@ $userloginid=$_SESSION["userid"] = $_GET['userlogid'];
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 <style>
+    body{
+    background-image: url('images/1.jpg');
+    background-size: cover;
+}
 .innerright,
 label {
     color: rgb(16, 170, 16);
@@ -96,8 +102,21 @@ a {
 
 <body>
 
+
     <?php
-   include("data_class.php");
+        include("data_class.php");
+        $msg="";
+
+        if(!empty($_REQUEST['msg'])){
+            $msg=$_REQUEST['msg'];
+        }
+
+        if($msg=="done"){
+            echo "<div class='alert alert-success' role='alert'>Sucssefully Done</div>";
+        }
+        elseif($msg=="fail"){
+            echo "<div class='alert alert-danger' role='alert'>Fail</div>";
+        }
     ?>
     <div class="container">
         <div class="innerdiv">
@@ -105,8 +124,8 @@ a {
             <div class="leftinnerdiv">
                 <Button class="greenbtn">Welcome</Button>
                 <Button class="greenbtn" onclick="openpart('myaccount')"> My Account</Button>
-                <Button class="greenbtn" onclick="openpart('addComlain')"> Add Complain</Button>
-                <Button class="greenbtn" onclick="openpart('payMen')"> Pay </Button>
+                <Button class="greenbtn" onclick="openpart('complain')"> Add Complain</Button>
+                <Button class="greenbtn" onclick="openpart('payMen')"> Pay Maintenance </Button>
                 <a href="index.php"><Button class="greenbtn"> LOGOUT</Button></a>
             </div>
 
@@ -128,21 +147,21 @@ a {
                         $name= $row[1];
                         $email= $row[2];
                         $pass= $row[3];
-                        $type= $row[4];
+                        $flat_no= $row[4];
                     }               
                     ?>
 
                     <p style="color:black"><u>Person Name:</u> &nbsp&nbsp<?php echo $name ?></p>
                     <p style="color:black"><u>Person Email:</u> &nbsp&nbsp<?php echo $email ?></p>
-                    <p style="color:black"><u>Account Type:</u> &nbsp&nbsp<?php echo $type ?></p>
+                    <p style="color:black"><u>Flat Number:</u> &nbsp&nbsp<?php echo $flat_no ?></p>
 
                 </div>
             </div>
 
 
             <div class="rightinnerdiv">
-                <div id="addComlain" class="innerright portion" style="display:none">
-                    <Button class="greenbtn">VIEW COMPLAIN</Button>
+                <div id="complain" class="innerright portion" style="display:none">
+                    <Button class="greenbtn">ADD COMPLAIN</Button>
                     <form action="add_complain.php" method="post" enctype="form-data">
                         <label>Name:</label><input type="text" name="name" />
                         </br>
@@ -159,20 +178,26 @@ a {
                     <?php
                         $u=new data;
                         $u->setconnection();
-                        $u->getAmount(1);
-                        $recordset=$u->getAmount(1);
+                        $u->getAmount($flat_no);
+                        $recordset=$u->getAmount($flat_no);
                         foreach($recordset as $row){
-                            $amount= $row[2] - $row[3];
+                            $amount_paid= $row[3];
+                            $pending_amount = $row[2];
                             $flat_no = $row[0];
                         }               
                     ?>
-                    <p style="color:black"><u>Amount:</u> &nbsp&nbsp<?php echo $amount  ?></p>
-
                     <Button class="greenbtn">PAY MAINTENANCE</Button>
+
+                    <p style="color:black"><u>Pending Amount:</u> &nbsp&nbsp<?php echo $pending_amount  ?></p>
+
                     <form action="payAmount.php" method="post" enctype="form-data">
                         <label>Amount:</label><input type="text" name="amount" />
                         </br>
                         <input type="hidden" name = "flat_no" value="<?php echo $flat_no ?>">
+                        <input type="hidden" name = "pending_amount" value="<?php echo $pending_amount ?>">
+                        <input type="hidden" name = "amount_paid" value="<?php echo $amount_paid ?>">
+                        <input type="hidden" name = "userid" value="<?php echo $userloginid ?>">
+
                         <input type="submit" value="SUBMIT" />
                     </form>
                 </div>

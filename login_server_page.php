@@ -24,5 +24,4 @@ elseif($login_email!=null&&$login_pasword!=null){
     $obj=new data();
     $obj->setconnection();
     $obj->userLogin($login_email,$login_pasword);
-
 }

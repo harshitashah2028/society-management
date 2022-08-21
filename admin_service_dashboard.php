@@ -17,6 +17,10 @@
     <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <style>
+    body{
+    background-image: url('images/1.jpg');
+    background-size: cover;
+}
 .innerright,
 label {
     color: rgb(16, 170, 16);
